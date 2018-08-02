@@ -49,7 +49,6 @@ body {
  animation: anticlockwisespin 2s linear 3;
 }
 
-
 @keyframes clockwisespin {
  from {transform: rotate(0deg);}
  to {transform: rotate(360deg);}
