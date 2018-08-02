@@ -1,7 +1,6 @@
 var preload = document.getElementById("preload");
 var loading = 0;
 var id = setInterval(frame, 64);
-
 function frame(){
   if(loading == 100) {
    clearInterval(id);
@@ -51,7 +50,7 @@ function geoFindMe() {
   function error() {
     console.log("Unable to retrieve your location");
   };
-  output.innerHTML = "<p>Locating…</p>";
+  output.innerHTML = "<p>Cargando…</p>";
   navigator.geolocation.getCurrentPosition(success, error);
 }
 geoFindMe();
