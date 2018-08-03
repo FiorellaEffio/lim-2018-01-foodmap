@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <style media="screen">
+      #map-canvas {
+        height: 40%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <meta charset="utf-8">
+    <title>Food - Map (FiorellaEffio)</title>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous">
+    </script>
+  </head>
+  <body>
+    <div id="map-canvas"></div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAR0gdzIldctyBCi2q-_2N5qZ6Z3QLwMLk&callback=initMap"
+    async defer></script>
+    <script src="map.js"></script>
+  </body>
+</html>

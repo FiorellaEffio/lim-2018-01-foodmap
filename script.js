@@ -35,6 +35,7 @@ function geoFindMe() {
   };
   function error() {
     console.log("Unable to retrieve your location");
+    initMap(-12.145437, -77.021891);
   };
   output.innerHTML = "<p>Cargando…</p>";
   navigator.geolocation.getCurrentPosition(success, error);
