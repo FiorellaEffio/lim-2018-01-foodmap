@@ -3,6 +3,7 @@ body {
  margin: 0;
  padding: 0;
  font-family: monospace;
+ color: #00e676;
 }
 .preload{
  width: 100%;
@@ -18,9 +19,8 @@ body {
  height: 70px;
  margin: 150px auto 50px auto;
  font-size: 50px;
- text-shadow: -1px 2px 2px #000;
  text-align: center;
- color: azure;
+ color: #08D385;
 }
 .loader-frame {
  width: 70px;
@@ -36,8 +36,8 @@ body {
 .loader1 {
  width: 70px;
  height: 70px;
- border-top: 5px solid azure;
- border-bottom: 5px solid azure;
+ border-top: 5px solid #e57373;
+ border-bottom: 5px solid #e57373;
  animation: clockwisespin 2s linear 3;
 }
 .loader2 {

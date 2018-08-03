@@ -5,6 +5,7 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <link rel="stylesheet" href="map.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -13,118 +14,17 @@
       integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
       crossorigin="anonymous">
     </script>
-    <script>
-      let map, infowindow;
-      //coordenadas de laboratoria en barranco
-      let laboratoriaLocation = {
-        lat : -12.145437,
-        lng : -77.021891
-      }
-      let currentLocation;
-      const success = (position) => {
-        console.log(position);
-        currentLocation = {
-          lat : position.coords.latitude,
-          lng : position.coords.longitude
-        };
-        initMap();
-      };
-      const error = () => {
-        alert("Te mostraremos restaurantes cerca a Laboratoria :)");
-        currentLocation = laboratoriaLocation;
-        initMap();
-      };
-
-      const toggleBounce = () => {
-        if (marker.getAnimation() !== null) {
-          marker.setAnimation(null);
-        } else {
-          marker.setAnimation(google.maps.Animation.BOUNCE);
-        }
-      }
-      function initMap() {
-        console.log(currentLocation);
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: currentLocation,
-          zoom: 15
-        });
-
-        infowindow = new google.maps.InfoWindow();
-        var service = new google.maps.places.PlacesService(map);
-        service.nearbySearch({
-          location: currentLocation,
-          radius: 500,
-          type: ['restaurant']
-        }, callback);
-      }
-
-      function callback(results, status) {
-        console.log(results);
-        if (status === google.maps.places.PlacesServiceStatus.OK) {
-          for (var i = 0; i < results.length; i++) {
-            createMarker(results[i]);
-            printRestaurantsDivs(results[i]);
-          }
-        }
-      }
-      function printRestaurantsDivs(objRestaurant) {
-        let answerOpenNow ='No hay información :(';
-        console.log(objRestaurant.hasOwnProperty('opening_hours'));
-        if(objRestaurant.hasOwnProperty('opening_hours') === true){
-          if(objRestaurant.opening_hours.open_now === false){
-            answerOpenNow = 'NO :(';
-          } else {
-            answerOpenNow = 'SI :)';
-          }
-        }
-        let restaurantContainer = document.getElementById('restaurants');
-        restaurantContainer.innerHTML += `
-        <div class="container">
-          <h1>${objRestaurant.name}</h1>
-          <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target=${'#R'+objRestaurant.id}>Mas info</button>
-        </div>`;
-        let modalForRestaurantContainer = document.getElementById('modalsForRestaurants');
-        modalsForRestaurants.innerHTML += `
-        <div class="modal fade" id=${'R'+objRestaurant.id} role="dialog">
-          <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">${objRestaurant.name}</h4>
-              </div>
-              <div class="modal-body">
-                <p>Ubicado en : ${objRestaurant.vicinity}</p>
-                <p>Abierto ahora: ${answerOpenNow}</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        `
-      }
-
-      function createMarker(place) {
-        var placeLoc = place.geometry.location;
-        var marker = new google.maps.Marker({
-          map: map,
-          position: place.geometry.location
-        });
-
-        google.maps.event.addListener(marker, 'click', function() {
-          infowindow.setContent(place.name);
-          infowindow.open(map, this);
-        });
-      }
-
-      navigator.geolocation.getCurrentPosition(success, error);
-
-    </script>
   </head>
   <body>
-    <div id="map"></div>
+    <header>
+      <h1 id="titulo">Encuentra restaurantes cerca de ti:</h1>
+    </header>
+    <div class="container center">
+      <div class="row">
+        <img src="images/logo.png" class="img-responsive col-sm-6" alt="">
+        <div id="map" class="img-responsive col-sm-6"></div>
+      </div>
+    </div>
     <div class="container">
       <!-- div de Restaurantes cerca de ti -->
       <div id="restaurants"></div>
@@ -133,5 +33,6 @@
     </div>
     <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyAR0gdzIldctyBCi2q-_2N5qZ6Z3QLwMLk&callback=initMap"
     async defer></script>
+    <script src="script.js"></script>
   </body>
 </html>
