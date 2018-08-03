@@ -1,32 +1,40 @@
-let map, marker;
+let map, marker, infowindow;
 //coordenadas de laboratoria en barranco
 let laboratoriaLocation = {
   lat : -12.145437,
   lng : -77.021891
 }
+let currentLocation;
 $(document).ready(function(){
   navigator.geolocation.getCurrentPosition(success, error);
 })
-function success(position) {
-  var latitude  = position.coords.latitude;
-  var longitude = position.coords.longitude;
-  initMap(latitude, longitude);
-
+const success = (position) => {
+  currentLocation = new google.maps.LatLng(position);
+  initMap();
 };
-function error() {
-  alert("Unable to retrieve your location");
-  initMap(laboratoriaLocation.lat, laboratoriaLocation.lng);
-  console.log('entro')
+const error = () => {
+  alert("Te mostraremos restaurantes cerca a Laboratoria :)");
+  currentLocation = laboratoriaLocation;
+  initMap();
 };
+const toggleBounce = () => {
+  if (marker.getAnimation() !== null) {
+    marker.setAnimation(null);
+  } else {
+    marker.setAnimation(google.maps.Animation.BOUNCE);
+  }
+}
 
-const initMap = (lat, lng) => {
-
+const initMap = () => {
   map = new google.maps.Map(document.getElementById('map-canvas'), {
-    center: {lat, lng},
-    zoom: 16
+    center: currentLocation,
+    zoom: 13
   });
   marker = new google.maps.Marker({
-    position: {lat, lng},
-    map:map
-  })
+    map:map,
+    draggable: true,
+    animation: google.maps.Animation.DROP,
+    position: currentLocation
+  });
+  marker.addListener('click', toggleBounce);
 }
